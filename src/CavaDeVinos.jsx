@@ -93,6 +93,26 @@ function migrateStorage() {
   return null;
 }
 
+// Enrich existing wines with new fields from INITIAL_WINES (one-time backfill)
+function enrichWines(wines) {
+  const lookup = {};
+  INITIAL_WINES.forEach(w => { lookup[w.id] = w; });
+  let changed = false;
+  const enriched = wines.map(w => {
+    const ref = lookup[w.id];
+    if (!ref) return w;
+    const updated = { ...w };
+    if (!w.precioPromedio && ref.precioPromedio) { updated.precioPromedio = ref.precioPromedio; changed = true; }
+    if (!w.produccion && ref.produccion) { updated.produccion = ref.produccion; changed = true; }
+    if (!w.puntajeCriticos && ref.puntajeCriticos) { updated.puntajeCriticos = ref.puntajeCriticos; changed = true; }
+    if (!w.fuenteCriticos && ref.fuenteCriticos) { updated.fuenteCriticos = ref.fuenteCriticos; changed = true; }
+    if (!w.maridaje && ref.maridaje) { updated.maridaje = ref.maridaje; changed = true; }
+    if (!w.fechaOptima && ref.fechaOptima) { updated.fechaOptima = ref.fechaOptima; changed = true; }
+    return updated;
+  });
+  return { wines: enriched, changed };
+}
+
 async function researchWine(wine) {
   try {
     const r = await fetch("/api/research", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(wine) });
@@ -137,12 +157,20 @@ export default function CavaDeVinos() {
   const [researched, setResearched] = useState(false);
 
   useEffect(() => {
+    const applyEnrich = (data) => {
+      const { wines: enriched, changed } = enrichWines(data);
+      setWines(enriched);
+      if (changed) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(enriched)); } catch {}
+        try { if (window.storage) window.storage.set(STORAGE_KEY, JSON.stringify(enriched)).catch(() => {}); } catch {}
+      }
+      setLoading(false);
+    };
     const load = () => {
-      // Try window.storage (Claude.ai)
       try {
         if (typeof window !== 'undefined' && window.storage) {
           window.storage.get(STORAGE_KEY).then(r => {
-            if (r?.value) { const d = JSON.parse(r.value); if (d.length > 0) { setWines(d); setLoading(false); return; } }
+            if (r?.value) { const d = JSON.parse(r.value); if (d.length > 0) { applyEnrich(d); return; } }
             tryLocal();
           }).catch(tryLocal);
           return;
@@ -152,7 +180,7 @@ export default function CavaDeVinos() {
     };
     const tryLocal = () => {
       const migrated = migrateStorage();
-      if (migrated && migrated.length > 0) { setWines(migrated); setLoading(false); return; }
+      if (migrated && migrated.length > 0) { applyEnrich(migrated); return; }
       setShowImport(true); setLoading(false);
     };
     load();
