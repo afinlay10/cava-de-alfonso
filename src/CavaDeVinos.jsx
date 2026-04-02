@@ -71,36 +71,41 @@ const INITIAL_WINES = [
 
 const emptyWine = { id: "", nombre: "", cepa: "", ano: new Date().getFullYear(), vina: "", valle: "", pais: "Chile", tier: "Gran Reserva", cava: "Cava 1", fechaOptima: "", maridaje: "", puntajeCriticos: "", fuenteCriticos: "", produccion: "Limitado" };
 const STORAGE_KEY = "cava-wines-v6";
-const API_KEY_KEY = "cava-api-key";
 
-async function researchWine(wine, apiKey) {
-  const q = `${wine.nombre} ${wine.vina} ${wine.cepa} ${wine.ano} ${wine.pais}`;
+async function researchWine(wine) {
+  // Try Vercel serverless function first, fallback to direct API call (Claude.ai)
+  try {
+    const vercelRes = await fetch("/api/research", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(wine)
+    });
+    if (vercelRes.ok) return await vercelRes.json();
+  } catch {}
+  // Fallback: direct Anthropic call (works inside Claude.ai artifacts)
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
-    headers: { "Content-Type": "application/json", ...(apiKey ? { "x-api-key": apiKey } : {}) },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       model: "claude-sonnet-4-20250514",
       max_tokens: 1000,
       tools: [{ type: "web_search_20250305", name: "web_search" }],
       messages: [{ role: "user", content: `Investiga este vino: "${wine.nombre}" de ${wine.vina}, cepa ${wine.cepa}, cosecha ${wine.ano}, origen ${wine.valle || wine.pais}, categoría ${wine.tier}.
 
-Busca en la web información sobre este vino y devuelve SOLAMENTE un objeto JSON (sin markdown, sin backticks, sin explicación) con estos campos:
-
+Busca en la web y devuelve SOLAMENTE un JSON (sin markdown, sin backticks):
 {
-  "puntajeCriticos": número entre 85 y 100 (el puntaje más alto de un crítico reconocido como Tim Atkin, James Suckling, Wine Enthusiast, Descorchados, Wine Spectator, Wine Advocate, Vinous. Si no encuentras puntaje, estima basado en la calidad del productor y tier),
-  "fuenteCriticos": string con el nombre del crítico que dio el puntaje,
-  "produccion": string, uno de exactamente estos valores: "Ultra limitado", "Limitado", "Moderado", "Amplio",
-  "maridaje": string de máximo 60 caracteres con sugerencia de maridaje,
-  "fechaOptimaAno": número del año óptimo límite para consumir (ej: 2032)
+  "puntajeCriticos": número 85-100 (puntaje más alto de Tim Atkin, James Suckling, Wine Enthusiast, Descorchados, Wine Spectator, Wine Advocate, Vinous),
+  "fuenteCriticos": "nombre del crítico",
+  "produccion": "Ultra limitado" | "Limitado" | "Moderado" | "Amplio",
+  "maridaje": "sugerencia máximo 60 caracteres",
+  "fechaOptimaAno": número año límite para consumir
 }
-
-IMPORTANTE: Responde SOLO el JSON. Sin texto antes ni después.` }]
+SOLO el JSON.` }]
     })
   });
   const data = await res.json();
   const texts = data.content?.filter(c => c.type === "text").map(c => c.text).join("") || "";
-  const clean = texts.replace(/```json|```/g, "").trim();
-  return JSON.parse(clean);
+  return JSON.parse(texts.replace(/```json|```/g, "").trim());
 }
 
 export default function CavaDeVinos() {
@@ -123,11 +128,8 @@ export default function CavaDeVinos() {
   const [recoResults, setRecoResults] = useState(null);
   const [researching, setResearching] = useState(false);
   const [researched, setResearched] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
-  const [apiKey, setApiKey] = useState("");
 
   useEffect(() => {
-    try { const k = localStorage.getItem(API_KEY_KEY); if (k) setApiKey(k); } catch {}
     const tryStorage = () => {
       try {
         if (typeof window !== 'undefined' && window.storage) {
@@ -159,7 +161,7 @@ export default function CavaDeVinos() {
     if (!form.nombre || !form.vina) { showToast("⚠️ Nombre y Viña son obligatorios"); return; }
     setResearching(true);
     try {
-      const result = await researchWine(form, apiKey);
+      const result = await researchWine(form);
       setForm(f => ({
         ...f,
         puntajeCriticos: result.puntajeCriticos || f.puntajeCriticos,
@@ -172,7 +174,7 @@ export default function CavaDeVinos() {
       showToast("✓ Investigación completada");
     } catch (e) {
       console.error(e);
-      showToast("⚠️ Error al investigar. Revisa tu API key en ⚙️ o completa manualmente.");
+      showToast("⚠️ Error al investigar. Intenta de nuevo.");
     }
     setResearching(false);
   };
@@ -218,8 +220,6 @@ export default function CavaDeVinos() {
   const fY = (d) => { if (!d) return ""; const x = new Date(d); return isNaN(x) ? d : x.getFullYear().toString(); };
   const handleReco = (o) => setRecoResults({ occasion: o, matches: rankedWines.filter(o.filter).slice(0, 5) });
 
-  const saveApiKey = (k) => { setApiKey(k); try { localStorage.setItem(API_KEY_KEY, k); } catch {} };
-
   if (loading) return <div style={S.loadingScreen}><div style={S.loadingText}>Cargando tu cava...</div></div>;
 
   return (
@@ -248,7 +248,6 @@ export default function CavaDeVinos() {
           {["dashboard","coleccion"].map(v=><button key={v} className="nav-btn" onClick={()=>setView(v)} style={{...S.navBtn,...(view===v?S.navBtnActive:{})}}>{v==="dashboard"?"Dashboard":"Colección"}</button>)}
           <button className="nav-btn" onClick={()=>setShowRecommender(true)} style={{...S.navBtn,background:"rgba(201,164,74,0.1)",color:"#c9a44a",borderColor:"rgba(201,164,74,0.3)"}}>🍽️ Recomendar</button>
           <button onClick={openAdd} style={S.addBtn}>+ Agregar</button>
-          <button onClick={()=>setShowSettings(true)} style={{...S.navBtn,padding:"7px 10px",fontSize:14}}>⚙️</button>
         </div>
       </div></div>
 
@@ -256,17 +255,6 @@ export default function CavaDeVinos() {
         {view === "dashboard" ? <DashboardView stats={stats} wines={rankedWines} onDetail={setDetailWine} fY={fY} /> :
           <CollectionView wines={filtered} search={search} setSearch={setSearch} filterCepa={filterCepa} setFilterCepa={setFilterCepa} filterTier={filterTier} setFilterTier={setFilterTier} filterCava={filterCava} setFilterCava={setFilterCava} sortBy={sortBy} setSortBy={setSortBy} onEdit={openEdit} onDelete={setConfirmDelete} onDetail={setDetailWine} fY={fY} />}
       </div>
-
-      {/* Settings */}
-      {showSettings && <div style={S.overlay} onClick={()=>setShowSettings(false)}><div style={{...S.modal,maxWidth:440}} onClick={e=>e.stopPropagation()}>
-        <div style={S.modalHeader}><h2 style={S.modalTitle}>⚙️ Configuración</h2><button onClick={()=>setShowSettings(false)} style={S.closeBtn}>✕</button></div>
-        <div style={{padding:"20px"}}>
-          <label style={S.label}>API Key de Anthropic</label>
-          <input className="fi" style={S.input} type="password" value={apiKey} onChange={e=>saveApiKey(e.target.value)} placeholder="sk-ant-..." />
-          <p style={{fontSize:11,color:"#6a5a4a",marginTop:8,lineHeight:1.5}}>Necesaria para investigar vinos automáticamente. Se guarda solo en tu dispositivo. La misma que usas en The Trade of the Day.</p>
-          {apiKey && <p style={{fontSize:12,color:"#8cbf6a",marginTop:8}}>✓ API Key configurada</p>}
-        </div>
-      </div></div>}
 
       {/* Recommender */}
       {showRecommender && <div style={S.overlay} onClick={()=>{setShowRecommender(false);setRecoResults(null)}}><div style={{...S.modal,maxWidth:560}} onClick={e=>e.stopPropagation()}>
