@@ -19,7 +19,7 @@ export default async function handler(req, res) {
         tools: [{ type: "web_search_20250305", name: "web_search" }],
         messages: [{ role: "user", content: `Investiga este vino: "${nombre}" de ${vina}, cepa ${cepa}, cosecha ${ano}, origen ${valle || pais}, categoría ${tier}.
 
-Busca en la web: puntajes de críticos, precio promedio de venta en Chile (CLP) o internacional (USD, convertir a CLP aprox), nivel de producción, maridaje y ventana de guarda.
+Busca en la web: puntajes de críticos, precio promedio de venta en Chile (CLP) o internacional (USD, convertir a CLP aprox ×950), nivel de producción, maridaje, y ventana óptima de consumo (año inicio y año fin).
 
 Devuelve SOLAMENTE un JSON (sin markdown, sin backticks):
 {
@@ -27,8 +27,9 @@ Devuelve SOLAMENTE un JSON (sin markdown, sin backticks):
   "fuenteCriticos": "nombre del crítico",
   "produccion": "Ultra limitado" | "Limitado" | "Moderado" | "Amplio",
   "maridaje": "sugerencia máximo 60 caracteres",
-  "fechaOptimaAno": número año límite para consumir,
-  "precioPromedio": número en CLP (pesos chilenos) del precio promedio de venta retail. Si solo encuentras USD, multiplica por 950. Si no encuentras precio exacto, estima según tier y productor.
+  "ventanaDesdeAno": número del año en que el vino entra en su mejor momento,
+  "ventanaHastaAno": número del año límite para consumirlo en su punto,
+  "precioPromedio": número en CLP del precio promedio retail
 }
 SOLO el JSON.` }]
       })
