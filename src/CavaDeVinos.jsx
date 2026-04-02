@@ -135,6 +135,30 @@ SOLO el JSON.` }]
   return JSON.parse(t.replace(/```json|```/g, "").trim());
 }
 
+async function scanLabel(base64, mediaType) {
+  try {
+    const r = await fetch("/api/scan", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ image: base64, mediaType }) });
+    if (r.ok) return await r.json();
+  } catch {}
+  // Fallback: direct Anthropic call (Claude.ai)
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-20250514", max_tokens: 800,
+      messages: [{ role: "user", content: [
+        { type: "image", source: { type: "base64", media_type: mediaType, data: base64 } },
+        { type: "text", text: `Analiza esta etiqueta de vino. Extrae la información visible.
+Devuelve SOLO JSON (sin markdown, sin backticks):
+{"nombre":"nombre del vino","vina":"viña/bodega","cepa":"variedad (Cabernet Sauvignon, Carmenere, Merlot, Syrah, Pinot Noir, Malbec, Cabernet Franc, Petit Verdot, Garnacha, Petite Sirah, Pinotage, Blend Tinto, Blend Blanco, Otro)","ano":número año,"valle":"región","pais":"país","tier":"Ícono|Super Premium|Premium|Gran Reserva|Reserva|Reserva Privada|Varietal"}
+Si no es visible, usa "" o 0. SOLO JSON.` }
+      ]}]
+    })
+  });
+  const data = await res.json();
+  const t = data.content?.filter(c => c.type === "text").map(c => c.text).join("") || "";
+  return JSON.parse(t.replace(/```json|```/g, "").trim());
+}
+
 export default function CavaDeVinos() {
   const [wines, setWines] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -155,6 +179,7 @@ export default function CavaDeVinos() {
   const [recoResults, setRecoResults] = useState(null);
   const [researching, setResearching] = useState(false);
   const [researched, setResearched] = useState(false);
+  const [scanning, setScanning] = useState(false);
 
   useEffect(() => {
     const applyEnrich = (data) => {
@@ -233,7 +258,36 @@ export default function CavaDeVinos() {
   };
 
   const openEdit = (w) => { setEditWine(w); setForm({ ...w, puntajeCriticos: w.puntajeCriticos ?? "", precioPromedio: w.precioPromedio ?? "" }); setResearched(true); setShowModal(true); setDetailWine(null); };
-  const openAdd = () => { setEditWine(null); setForm({ ...emptyWine }); setResearched(false); setShowModal(true); };
+  const openAdd = () => { setEditWine(null); setForm({ ...emptyWine }); setResearched(false); setScanning(false); setShowModal(true); };
+
+  const handleScan = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setScanning(true);
+    try {
+      const base64 = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(",")[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      const mediaType = file.type || "image/jpeg";
+      const result = await scanLabel(base64, mediaType);
+      setForm(f => ({
+        ...f,
+        nombre: result.nombre || f.nombre,
+        vina: result.vina || f.vina,
+        cepa: CEPAS.includes(result.cepa) ? result.cepa : f.cepa,
+        ano: result.ano || f.ano,
+        valle: result.valle || f.valle,
+        pais: PAISES.includes(result.pais) ? result.pais : f.pais,
+        tier: TIERS.includes(result.tier) ? result.tier : f.tier,
+      }));
+      showToast("✓ Etiqueta leída — revisa los datos");
+    } catch (err) { console.error(err); showToast("⚠️ No pude leer la etiqueta. Intenta con otra foto."); }
+    setScanning(false);
+    e.target.value = "";
+  };
 
   const filtered = useMemo(() => {
     let f = rankedWines.filter(w => {
@@ -372,6 +426,13 @@ export default function CavaDeVinos() {
       {showModal&&<div style={S.overlay} onClick={()=>setShowModal(false)}><div style={S.modal} onClick={e=>e.stopPropagation()}>
         <div style={S.modalHeader}><h2 style={S.modalTitle}>{editWine?"Editar Vino":"Agregar Vino"}</h2><button onClick={()=>setShowModal(false)} style={S.closeBtn}>✕</button></div>
         <div style={S.modalBody}>
+          {!editWine&&<div style={{marginBottom:18,textAlign:"center"}}>
+            <input type="file" accept="image/*" capture="environment" id="wine-camera" style={{display:"none"}} onChange={handleScan} />
+            <button onClick={()=>document.getElementById("wine-camera").click()} disabled={scanning} style={{...S.saveBtn,padding:"14px 28px",fontSize:14,width:"100%",background:"linear-gradient(135deg,#2a4a6b,#1a3a5a)",cursor:scanning?"wait":"pointer",opacity:scanning?0.6:1}}>
+              {scanning?<><span style={{display:"inline-block",width:14,height:14,border:"2px solid rgba(255,255,255,0.3)",borderTopColor:"#fff",borderRadius:"50%",animation:"spin 0.8s linear infinite",verticalAlign:"middle",marginRight:8}}/>Leyendo etiqueta...</>:"📷 Escanear Etiqueta"}
+            </button>
+            <p style={{fontSize:10,color:"#6a5a4a",marginTop:6}}>Saca una foto a la etiqueta y la IA completa los datos. También puedes llenar a mano.</p>
+          </div>}
           <div style={{fontSize:11,color:"#c9a44a",textTransform:"uppercase",letterSpacing:1,marginBottom:10,fontWeight:600}}>Datos del vino</div>
           <div style={S.formGrid}>
             <FF l="Nombre *" s={2}><input className="fi" style={S.input} value={form.nombre} onChange={e=>setForm({...form,nombre:e.target.value})} placeholder="Ej: Don Melchor"/></FF>
