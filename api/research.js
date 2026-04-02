@@ -19,16 +19,16 @@ export default async function handler(req, res) {
         tools: [{ type: "web_search_20250305", name: "web_search" }],
         messages: [{ role: "user", content: `Investiga este vino: "${nombre}" de ${vina}, cepa ${cepa}, cosecha ${ano}, origen ${valle || pais}, categoría ${tier}.
 
-Busca en la web: puntajes de críticos, precio promedio de venta en Chile (CLP) o internacional (USD, convertir a CLP aprox ×950), nivel de producción, maridaje, y ventana óptima de consumo (año inicio y año fin).
+Busca en la web: puntajes de críticos, precio promedio de venta en Chile (CLP) o internacional (USD×950=CLP), nivel de producción, maridaje, y PUNTO DULCE de consumo (el rango de 2-4 años donde el vino está en su apogeo — taninos integrados, fruta y complejidad en equilibrio perfecto).
 
 Devuelve SOLAMENTE un JSON (sin markdown, sin backticks):
 {
-  "puntajeCriticos": número 85-100 (puntaje más alto de Tim Atkin, James Suckling, Wine Enthusiast, Descorchados, Wine Spectator, Wine Advocate, Vinous),
+  "puntajeCriticos": número 85-100 (puntaje más alto de crítico reconocido),
   "fuenteCriticos": "nombre del crítico",
   "produccion": "Ultra limitado" | "Limitado" | "Moderado" | "Amplio",
   "maridaje": "sugerencia máximo 60 caracteres",
-  "ventanaDesdeAno": número del año en que el vino entra en su mejor momento,
-  "ventanaHastaAno": número del año límite para consumirlo en su punto,
+  "ventanaDesdeAno": número año en que el vino alcanza su PUNTO DULCE,
+  "ventanaHastaAno": número año fin del punto dulce (2-4 años después),
   "precioPromedio": número en CLP del precio promedio retail
 }
 SOLO el JSON.` }]
