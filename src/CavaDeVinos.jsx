@@ -51,23 +51,23 @@ const OCCASIONS = [
 ];
 
 const INITIAL_WINES = [
-  { id: "w01", nombre: 'Maquis "Franco"', cepa: "Cabernet Franc", ano: 2019, vina: "Viña Maquis", valle: "Valle de Colchagua", pais: "Chile", tier: "Ícono", cava: "Cava 1", ventanaDesde: "2029-01-01", fechaOptima: "2034-01-01", maridaje: "Cordero, caza mayor, quesos añejos", puntajeCriticos: 97, fuenteCriticos: "Tim Atkin", produccion: "Ultra limitado", precioPromedio: 100000 },
-  { id: "w02", nombre: "Montes Alpha Ed. Limitada 30 Años", cepa: "Cabernet Sauvignon", ano: 2018, vina: "Viña Montes", valle: "Valle de Colchagua (Apalta)", pais: "Chile", tier: "Super Premium", cava: "Cava 1", ventanaDesde: "2027-01-01", fechaOptima: "2031-01-01", maridaje: "Filete, entrecot, quesos duros añejos", puntajeCriticos: 93, fuenteCriticos: "Wine Enthusiast", produccion: "Ultra limitado", precioPromedio: 48000 },
-  { id: "w03", nombre: 'Santa Ema "Catalina"', cepa: "Blend Tinto", ano: 2017, vina: "Viña Santa Ema", valle: "Maipo Alto (Pirque)", pais: "Chile", tier: "Ícono", cava: "Cava 1", ventanaDesde: "2025-01-01", fechaOptima: "2028-01-01", maridaje: "Lomo de res, cordero al horno, risotto de hongos", puntajeCriticos: 95, fuenteCriticos: "Descorchados", produccion: "Moderado", precioPromedio: 30000 },
-  { id: "w04", nombre: 'Santa Rita "Bougainville" Petite Sirah', cepa: "Petite Sirah", ano: 2022, vina: "Viña Santa Rita", valle: "Maipo Alto (Alto Jahuel)", pais: "Chile", tier: "Ícono", cava: "Cava 1", ventanaDesde: "2031-01-01", fechaOptima: "2035-01-01", maridaje: "Estofado de res, costillas BBQ, queso azul", puntajeCriticos: 92, fuenteCriticos: "Promedio histórico", produccion: "Ultra limitado", precioPromedio: 65000 },
-  { id: "w05", nombre: 'VIK "Milla Cala"', cepa: "Blend Tinto", ano: 2021, vina: "Viña VIK", valle: "Millahue, Valle de Cachapoal", pais: "Chile", tier: "Super Premium", cava: "Cava 1", ventanaDesde: "2028-01-01", fechaOptima: "2032-01-01", maridaje: "Carnes rojas, estofados, quesos semiduros", puntajeCriticos: 95, fuenteCriticos: "James Suckling", produccion: "Limitado", precioPromedio: 33000 },
-  { id: "w06", nombre: 'Tarapacá "Gran Reserva Etiqueta Azul"', cepa: "Blend Tinto", ano: 2021, vina: "Viña Tarapacá", valle: "Valle del Maipo (Isla de Maipo)", pais: "Chile", tier: "Gran Reserva", cava: "Cava 1", ventanaDesde: "2027-01-01", fechaOptima: "2030-01-01", maridaje: "Asado, costillar, carnes a la parrilla", puntajeCriticos: 95, fuenteCriticos: "Descorchados", produccion: "Limitado", precioPromedio: 30000 },
-  { id: "w07", nombre: 'Concha y Toro "Terrunyo" Carmenère', cepa: "Carmenere", ano: 2021, vina: "Viña Concha y Toro", valle: "Valle de Cachapoal (Peumo)", pais: "Chile", tier: "Super Premium", cava: "Cava 1", ventanaDesde: "2026-01-01", fechaOptima: "2028-01-01", maridaje: "Cerdo glaseado, pato, pastas con ragú", puntajeCriticos: 95, fuenteCriticos: "Descorchados", produccion: "Limitado", precioPromedio: 25000 },
-  { id: "w08", nombre: 'Valdivieso "Caballo Loco Grand Cru"', cepa: "Blend Tinto", ano: 2020, vina: "Viña Valdivieso", valle: "Maipo Alto", pais: "Chile", tier: "Super Premium", cava: "Cava 1", ventanaDesde: "2027-01-01", fechaOptima: "2030-01-01", maridaje: "Ciervo, jabalí, carnes de caza", puntajeCriticos: 93, fuenteCriticos: "Wine Enthusiast (est.)", produccion: "Limitado", precioPromedio: 42000 },
-  { id: "w09", nombre: 'Undurraga "Cauquén" Garnacha', cepa: "Garnacha", ano: 2020, vina: "Viña Undurraga", valle: "Valle del Maule (Cauquenes)", pais: "Chile", tier: "Super Premium", cava: "Cava 1", ventanaDesde: "2025-01-01", fechaOptima: "2027-01-01", maridaje: "Paella, charcutería, tapas mediterráneas", puntajeCriticos: 92, fuenteCriticos: "Wine Enthusiast", produccion: "Ultra limitado", precioPromedio: 40000 },
-  { id: "w10", nombre: 'Undurraga "Red Field Blend"', cepa: "Blend Tinto", ano: 2020, vina: "Viña Undurraga", valle: "Valle del Maule (Cauquenes)", pais: "Chile", tier: "Super Premium", cava: "Cava 1", ventanaDesde: "2025-01-01", fechaOptima: "2027-01-01", maridaje: "Guisos campestres, empanadas, cazuela", puntajeCriticos: 91, fuenteCriticos: "James Suckling", produccion: "Ultra limitado", precioPromedio: 35000 },
-  { id: "w11", nombre: 'San Pedro "Sideral"', cepa: "Blend Tinto", ano: 2021, vina: "Viña San Pedro (Altair)", valle: "Cachapoal Andes (Alto Cachapoal)", pais: "Chile", tier: "Premium", cava: "Cava 1", ventanaDesde: "2026-01-01", fechaOptima: "2029-01-01", maridaje: "Rib eye, pasta al ragú, cordero", puntajeCriticos: 95, fuenteCriticos: "Vinous", produccion: "Amplio", precioPromedio: 23000 },
-  { id: "w12", nombre: 'Bestias "Bestia Negra"', cepa: "Carmenere", ano: 2017, vina: "Viña Requingua", valle: "Valle de Colchagua", pais: "Chile", tier: "Gran Reserva", cava: "Cava 1", ventanaDesde: "2024-01-01", fechaOptima: "2026-01-01", maridaje: "Asado argentino, hamburguesas gourmet", puntajeCriticos: 93, fuenteCriticos: "Wine Diplomats", produccion: "Moderado", precioPromedio: 12000 },
-  { id: "w13", nombre: "Groot Constantia Pinotage", cepa: "Pinotage", ano: 2021, vina: "Groot Constantia Estate", valle: "Constantia", pais: "Sudáfrica", tier: "Gran Reserva", cava: "Cava 2", ventanaDesde: "2025-01-01", fechaOptima: "2027-01-01", maridaje: "Bobotie, carnes ahumadas, BBQ sudafricano", puntajeCriticos: 89, fuenteCriticos: "Tim Atkin", produccion: "Amplio", precioPromedio: 25000 },
-  { id: "w14", nombre: 'Garcés Silva "Boya" Cabernet Franc', cepa: "Cabernet Franc", ano: 2018, vina: "Viñedos Garcés Silva", valle: "Valle de Leyda", pais: "Chile", tier: "Reserva", cava: "Cava 2", ventanaDesde: "2023-01-01", fechaOptima: "2025-01-01", maridaje: "Pollo al horno, vegetales grillados, queso de cabra", puntajeCriticos: 92, fuenteCriticos: "ADEGA", produccion: "Amplio", precioPromedio: 9000 },
+  { id: "w01", nombre: 'Maquis "Franco"', cepa: "Cabernet Franc", ano: 2019, vina: "Viña Maquis", valle: "Valle de Colchagua", pais: "Chile", tier: "Ícono", cava: "Cava 1", ventanaDesde: "2029-01-01", fechaOptima: "2034-01-01", maridaje: "Cordero, caza mayor, quesos añejos", puntajeCriticos: 97, fuenteCriticos: "Tim Atkin", produccion: "Ultra limitado", precioPromedio: 100000, stock: 1 },
+  { id: "w02", nombre: "Montes Alpha Ed. Limitada 30 Años", cepa: "Cabernet Sauvignon", ano: 2018, vina: "Viña Montes", valle: "Valle de Colchagua (Apalta)", pais: "Chile", tier: "Super Premium", cava: "Cava 1", ventanaDesde: "2027-01-01", fechaOptima: "2031-01-01", maridaje: "Filete, entrecot, quesos duros añejos", puntajeCriticos: 93, fuenteCriticos: "Wine Enthusiast", produccion: "Ultra limitado", precioPromedio: 48000, stock: 1 },
+  { id: "w03", nombre: 'Santa Ema "Catalina"', cepa: "Blend Tinto", ano: 2017, vina: "Viña Santa Ema", valle: "Maipo Alto (Pirque)", pais: "Chile", tier: "Ícono", cava: "Cava 1", ventanaDesde: "2025-01-01", fechaOptima: "2028-01-01", maridaje: "Lomo de res, cordero al horno, risotto de hongos", puntajeCriticos: 95, fuenteCriticos: "Descorchados", produccion: "Moderado", precioPromedio: 30000, stock: 1 },
+  { id: "w04", nombre: 'Santa Rita "Bougainville" Petite Sirah', cepa: "Petite Sirah", ano: 2022, vina: "Viña Santa Rita", valle: "Maipo Alto (Alto Jahuel)", pais: "Chile", tier: "Ícono", cava: "Cava 1", ventanaDesde: "2031-01-01", fechaOptima: "2035-01-01", maridaje: "Estofado de res, costillas BBQ, queso azul", puntajeCriticos: 92, fuenteCriticos: "Promedio histórico", produccion: "Ultra limitado", precioPromedio: 65000, stock: 1 },
+  { id: "w05", nombre: 'VIK "Milla Cala"', cepa: "Blend Tinto", ano: 2021, vina: "Viña VIK", valle: "Millahue, Valle de Cachapoal", pais: "Chile", tier: "Super Premium", cava: "Cava 1", ventanaDesde: "2028-01-01", fechaOptima: "2032-01-01", maridaje: "Carnes rojas, estofados, quesos semiduros", puntajeCriticos: 95, fuenteCriticos: "James Suckling", produccion: "Limitado", precioPromedio: 33000, stock: 1 },
+  { id: "w06", nombre: 'Tarapacá "Gran Reserva Etiqueta Azul"', cepa: "Blend Tinto", ano: 2021, vina: "Viña Tarapacá", valle: "Valle del Maipo (Isla de Maipo)", pais: "Chile", tier: "Gran Reserva", cava: "Cava 1", ventanaDesde: "2027-01-01", fechaOptima: "2030-01-01", maridaje: "Asado, costillar, carnes a la parrilla", puntajeCriticos: 95, fuenteCriticos: "Descorchados", produccion: "Limitado", precioPromedio: 30000, stock: 1 },
+  { id: "w07", nombre: 'Concha y Toro "Terrunyo" Carmenère', cepa: "Carmenere", ano: 2021, vina: "Viña Concha y Toro", valle: "Valle de Cachapoal (Peumo)", pais: "Chile", tier: "Super Premium", cava: "Cava 1", ventanaDesde: "2026-01-01", fechaOptima: "2028-01-01", maridaje: "Cerdo glaseado, pato, pastas con ragú", puntajeCriticos: 95, fuenteCriticos: "Descorchados", produccion: "Limitado", precioPromedio: 25000, stock: 1 },
+  { id: "w08", nombre: 'Valdivieso "Caballo Loco Grand Cru"', cepa: "Blend Tinto", ano: 2020, vina: "Viña Valdivieso", valle: "Maipo Alto", pais: "Chile", tier: "Super Premium", cava: "Cava 1", ventanaDesde: "2027-01-01", fechaOptima: "2030-01-01", maridaje: "Ciervo, jabalí, carnes de caza", puntajeCriticos: 93, fuenteCriticos: "Wine Enthusiast (est.)", produccion: "Limitado", precioPromedio: 42000, stock: 1 },
+  { id: "w09", nombre: 'Undurraga "Cauquén" Garnacha', cepa: "Garnacha", ano: 2020, vina: "Viña Undurraga", valle: "Valle del Maule (Cauquenes)", pais: "Chile", tier: "Super Premium", cava: "Cava 1", ventanaDesde: "2025-01-01", fechaOptima: "2027-01-01", maridaje: "Paella, charcutería, tapas mediterráneas", puntajeCriticos: 92, fuenteCriticos: "Wine Enthusiast", produccion: "Ultra limitado", precioPromedio: 40000, stock: 1 },
+  { id: "w10", nombre: 'Undurraga "Red Field Blend"', cepa: "Blend Tinto", ano: 2020, vina: "Viña Undurraga", valle: "Valle del Maule (Cauquenes)", pais: "Chile", tier: "Super Premium", cava: "Cava 1", ventanaDesde: "2025-01-01", fechaOptima: "2027-01-01", maridaje: "Guisos campestres, empanadas, cazuela", puntajeCriticos: 91, fuenteCriticos: "James Suckling", produccion: "Ultra limitado", precioPromedio: 35000, stock: 1 },
+  { id: "w11", nombre: 'San Pedro "Sideral"', cepa: "Blend Tinto", ano: 2021, vina: "Viña San Pedro (Altair)", valle: "Cachapoal Andes (Alto Cachapoal)", pais: "Chile", tier: "Premium", cava: "Cava 1", ventanaDesde: "2026-01-01", fechaOptima: "2029-01-01", maridaje: "Rib eye, pasta al ragú, cordero", puntajeCriticos: 95, fuenteCriticos: "Vinous", produccion: "Amplio", precioPromedio: 23000, stock: 1 },
+  { id: "w12", nombre: 'Bestias "Bestia Negra"', cepa: "Carmenere", ano: 2017, vina: "Viña Requingua", valle: "Valle de Colchagua", pais: "Chile", tier: "Gran Reserva", cava: "Cava 1", ventanaDesde: "2024-01-01", fechaOptima: "2026-01-01", maridaje: "Asado argentino, hamburguesas gourmet", puntajeCriticos: 93, fuenteCriticos: "Wine Diplomats", produccion: "Moderado", precioPromedio: 12000, stock: 1 },
+  { id: "w13", nombre: "Groot Constantia Pinotage", cepa: "Pinotage", ano: 2021, vina: "Groot Constantia Estate", valle: "Constantia", pais: "Sudáfrica", tier: "Gran Reserva", cava: "Cava 2", ventanaDesde: "2025-01-01", fechaOptima: "2027-01-01", maridaje: "Bobotie, carnes ahumadas, BBQ sudafricano", puntajeCriticos: 89, fuenteCriticos: "Tim Atkin", produccion: "Amplio", precioPromedio: 25000, stock: 1 },
+  { id: "w14", nombre: 'Garcés Silva "Boya" Cabernet Franc', cepa: "Cabernet Franc", ano: 2018, vina: "Viñedos Garcés Silva", valle: "Valle de Leyda", pais: "Chile", tier: "Reserva", cava: "Cava 2", ventanaDesde: "2023-01-01", fechaOptima: "2025-01-01", maridaje: "Pollo al horno, vegetales grillados, queso de cabra", puntajeCriticos: 92, fuenteCriticos: "ADEGA", produccion: "Amplio", precioPromedio: 9000, stock: 1 },
 ];
 
-const emptyWine = { id: "", nombre: "", cepa: "", ano: new Date().getFullYear(), vina: "", valle: "", pais: "Chile", tier: "Gran Reserva", cava: "Cava 1", ventanaDesde: "", fechaOptima: "", maridaje: "", puntajeCriticos: "", fuenteCriticos: "", produccion: "Limitado", precioPromedio: "" };
+const emptyWine = { id: "", nombre: "", cepa: "", ano: new Date().getFullYear(), vina: "", valle: "", pais: "Chile", tier: "Gran Reserva", cava: "Cava 1", ventanaDesde: "", fechaOptima: "", maridaje: "", puntajeCriticos: "", fuenteCriticos: "", produccion: "Limitado", precioPromedio: "", stock: 1 };
 
 // === PERMANENT STORAGE KEY — NEVER CHANGE THIS ===
 const STORAGE_KEY = "cava-wines";
@@ -109,6 +109,7 @@ function enrichWines(wines) {
     if (!w.maridaje && ref.maridaje) { updated.maridaje = ref.maridaje; changed = true; }
     if (!w.fechaOptima && ref.fechaOptima) { updated.fechaOptima = ref.fechaOptima; changed = true; }
     if (!w.ventanaDesde && ref.ventanaDesde) { updated.ventanaDesde = ref.ventanaDesde; changed = true; }
+    if (w.stock === undefined || w.stock === null) { updated.stock = 1; changed = true; }
     return updated;
   });
   return { wines: enriched, changed };
@@ -246,7 +247,7 @@ export default function CavaDeVinos() {
 
   const handleSave = () => {
     if (!form.nombre || !form.vina) { showToast("⚠️ Nombre y Viña son obligatorios"); return; }
-    const wd = { ...form, puntajeCriticos: form.puntajeCriticos ? parseInt(form.puntajeCriticos) : null, precioPromedio: form.precioPromedio ? parseInt(form.precioPromedio) : null };
+    const wd = { ...form, puntajeCriticos: form.puntajeCriticos ? parseInt(form.puntajeCriticos) : null, precioPromedio: form.precioPromedio ? parseInt(form.precioPromedio) : null, stock: form.stock ? parseInt(form.stock) : 1 };
     let updated;
     if (editWine) { updated = wines.map(w => w.id === editWine.id ? { ...wd, id: editWine.id } : w); }
     else { updated = [...wines, { ...wd, id: Date.now().toString() }]; }
@@ -260,7 +261,18 @@ export default function CavaDeVinos() {
     setConfirmDelete(null); setDetailWine(null); showToast("Eliminado");
   };
 
-  const openEdit = (w) => { setEditWine(w); setForm({ ...w, puntajeCriticos: w.puntajeCriticos ?? "", precioPromedio: w.precioPromedio ?? "" }); setResearched(true); setShowModal(true); setDetailWine(null); };
+  const handleOpen = (wine) => {
+    const updated = wines.map(w => {
+      if (w.id === wine.id) return { ...w, stock: Math.max(0, (w.stock || 1) - 1) };
+      return w;
+    });
+    setWines(updated); persist(updated);
+    const remaining = (wine.stock || 1) - 1;
+    setDetailWine(null);
+    showToast(`🍷 ¡Salud! ${wine.nombre} — ${remaining > 0 ? `quedan ${remaining}` : "última botella abierta"}`);
+  };
+
+  const openEdit = (w) => { setEditWine(w); setForm({ ...w, puntajeCriticos: w.puntajeCriticos ?? "", precioPromedio: w.precioPromedio ?? "", stock: w.stock ?? 1 }); setResearched(true); setShowModal(true); setDetailWine(null); };
   const openAdd = () => { setEditWine(null); setForm({ ...emptyWine }); setResearched(false); setScanning(false); setShowModal(true); };
 
   const handleExport = () => {
@@ -336,14 +348,17 @@ export default function CavaDeVinos() {
   }, [rankedWines, search, filterCepa, filterTier, filterCava, sortBy]);
 
   const stats = useMemo(() => {
-    const cepas = {}, tiers = {}, paises = {}, cavas = { "Cava 1": 0, "Cava 2": 0 };
-    let valorTotal = 0;
+    const cepas = {}, tiers = {}, paises = {}, vinas = {}, cavas = { "Cava 1": 0, "Cava 2": 0 };
+    let valorTotal = 0, totalBotellas = 0;
     rankedWines.forEach(w => {
-      if (w.cepa) cepas[w.cepa] = (cepas[w.cepa] || 0) + 1;
-      tiers[w.tier] = (tiers[w.tier] || 0) + 1;
-      paises[w.pais] = (paises[w.pais] || 0) + 1;
-      if (w.cava) cavas[w.cava] = (cavas[w.cava] || 0) + 1;
-      if (w.precioPromedio) valorTotal += w.precioPromedio;
+      const st = w.stock ?? 1;
+      totalBotellas += st;
+      if (w.cepa) cepas[w.cepa] = (cepas[w.cepa] || 0) + st;
+      tiers[w.tier] = (tiers[w.tier] || 0) + st;
+      paises[w.pais] = (paises[w.pais] || 0) + st;
+      if (w.vina) vinas[w.vina] = (vinas[w.vina] || 0) + st;
+      if (w.cava) cavas[w.cava] = (cavas[w.cava] || 0) + st;
+      if (w.precioPromedio) valorTotal += w.precioPromedio * st;
     });
     const now = new Date().getFullYear();
     const enVentana = rankedWines.filter(w => {
@@ -351,7 +366,7 @@ export default function CavaDeVinos() {
       const hasta = w.fechaOptima ? new Date(w.fechaOptima).getFullYear() : 9999;
       return now >= desde && now <= hasta;
     });
-    return { total: rankedWines.length, cepas, tiers, paises, cavas, enVentana, valorTotal };
+    return { total: rankedWines.length, totalBotellas, cepas, tiers, paises, vinas, cavas, enVentana, valorTotal };
   }, [rankedWines]);
 
   const fY = (d) => { if (!d) return ""; const x = new Date(d); return isNaN(x) ? d : x.getFullYear().toString(); };
@@ -377,7 +392,7 @@ export default function CavaDeVinos() {
       `}</style>
 
       <div style={S.header}><div style={S.headerInner}>
-        <div style={S.logoArea}><div style={{fontSize:26}}>🍷</div><div><div style={S.logoTitle}>La Cava de Alfonso</div><div style={S.logoSub}>{wines.length} vino{wines.length!==1?"s":""} · {fmtCLP(stats.valorTotal)}</div></div></div>
+        <div style={S.logoArea}><div style={{fontSize:26}}>🍷</div><div><div style={S.logoTitle}>La Cava de Alfonso</div><div style={S.logoSub}>{stats.totalBotellas} botella{stats.totalBotellas!==1?"s":""} · {wines.length} etiqueta{wines.length!==1?"s":""} · {fmtCLP(stats.valorTotal)}</div></div></div>
         <div style={S.navArea}>
           {["dashboard","coleccion"].map(v=><button key={v} className="nav-btn" onClick={()=>setView(v)} style={{...S.navBtn,...(view===v?S.navBtnActive:{})}}>{v==="dashboard"?"Dashboard":"Colección"}</button>)}
           <button className="nav-btn" onClick={()=>setShowRecommender(true)} style={{...S.navBtn,background:"rgba(201,164,74,0.1)",color:"#c9a44a",borderColor:"rgba(201,164,74,0.3)"}}>🍽️ Recomendar</button>
@@ -461,23 +476,32 @@ export default function CavaDeVinos() {
         <div style={{padding:"18px 22px"}}>
           <div style={S.detailGrid}><DR l="Cepa" v={r.cepa}/><DR l="Valle" v={r.valle}/><DR l="País" v={r.pais}/><DR l="Cava" v={r.cava}/><DR l="Producción" v={r.produccion}/>{(r.ventanaDesde||r.fechaOptima)&&<DR l="Punto dulce" v={`${fY(r.ventanaDesde)||"?"} — ${fY(r.fechaOptima)||"?"}`} h={(()=>{const now=new Date().getFullYear();const d=r.ventanaDesde?new Date(r.ventanaDesde).getFullYear():0;const h=r.fechaOptima?new Date(r.fechaOptima).getFullYear():9999;return now>=d&&now<=h})()}/>}</div>
           <div style={{display:"flex",gap:10,marginTop:12,flexWrap:"wrap"}}>
-            {r.puntajeCriticos&&<div style={{flex:1,minWidth:120,padding:"10px 12px",background:"rgba(122,59,78,0.1)",borderRadius:8,border:"1px solid rgba(122,59,78,0.15)"}}>
+            {r.puntajeCriticos&&<div style={{flex:1,minWidth:100,padding:"10px 12px",background:"rgba(122,59,78,0.1)",borderRadius:8,border:"1px solid rgba(122,59,78,0.15)"}}>
               <div style={{fontSize:10,color:"#8a7a6a",textTransform:"uppercase",letterSpacing:0.5}}>Puntaje</div>
               <div style={{fontSize:22,fontFamily:"'Playfair Display',serif",fontWeight:700,color:"#e8ddd0"}}>{r.puntajeCriticos}</div>
               {r.fuenteCriticos&&<div style={{fontSize:11,color:"#c9b8a8"}}>{r.fuenteCriticos}</div>}
             </div>}
-            {r.precioPromedio&&<div style={{flex:1,minWidth:120,padding:"10px 12px",background:"rgba(201,164,74,0.06)",borderRadius:8,border:"1px solid rgba(201,164,74,0.12)"}}>
+            {r.precioPromedio&&<div style={{flex:1,minWidth:100,padding:"10px 12px",background:"rgba(201,164,74,0.06)",borderRadius:8,border:"1px solid rgba(201,164,74,0.12)"}}>
               <div style={{fontSize:10,color:"#8a7a6a",textTransform:"uppercase",letterSpacing:0.5}}>Precio Ref.</div>
               <div style={{fontSize:22,fontFamily:"'Playfair Display',serif",fontWeight:700,color:"#c9a44a"}}>{fmtCLP(r.precioPromedio)}</div>
               <div style={{fontSize:11,color:"#6a5a4a"}}>promedio retail</div>
             </div>}
+            <div style={{flex:1,minWidth:100,padding:"10px 12px",background:(r.stock??1)>0?"rgba(100,160,80,0.08)":"rgba(139,48,64,0.08)",borderRadius:8,border:`1px solid ${(r.stock??1)>0?"rgba(100,160,80,0.15)":"rgba(139,48,64,0.15)"}`}}>
+              <div style={{fontSize:10,color:"#8a7a6a",textTransform:"uppercase",letterSpacing:0.5}}>Stock</div>
+              <div style={{fontSize:22,fontFamily:"'Playfair Display',serif",fontWeight:700,color:(r.stock??1)>0?"#8cbf6a":"#c06060"}}>{r.stock??1}</div>
+              <div style={{fontSize:11,color:"#6a5a4a"}}>{(r.stock??1)===0?"agotado":(r.stock??1)===1?"botella":"botellas"}</div>
+            </div>
           </div>
           {r.maridaje&&<div style={{marginTop:10,padding:"10px 12px",background:"rgba(201,164,74,0.04)",borderRadius:8,border:"1px solid rgba(201,164,74,0.1)"}}>
             <div style={{fontSize:10,color:"#c9a44a",textTransform:"uppercase",letterSpacing:1,marginBottom:3}}>🍽️ Maridaje</div>
             <div style={{fontSize:13,color:"#c9b8a8",lineHeight:1.4}}>{r.maridaje}</div>
           </div>}
         </div>
-        <div style={S.modalFooter}><button onClick={()=>setConfirmDelete(r)} style={{...S.cancelBtn,color:"#8b4050",borderColor:"rgba(139,64,80,0.3)"}}>Eliminar</button><button onClick={()=>openEdit(r)} style={S.saveBtn}>Editar</button></div>
+        <div style={S.modalFooter}>
+          <button onClick={()=>setConfirmDelete(r)} style={{...S.cancelBtn,color:"#8b4050",borderColor:"rgba(139,64,80,0.3)"}}>Eliminar</button>
+          <button onClick={()=>openEdit(r)} style={S.cancelBtn}>Editar</button>
+          {(r.stock??1)>0&&<button onClick={()=>handleOpen(r)} style={{...S.saveBtn,background:"linear-gradient(135deg,#3a6b3e,#2a5a2e)"}}>🍷 Abrir Botella</button>}
+        </div>
       </div></div>})()}
 
       {/* Add/Edit */}
@@ -501,6 +525,8 @@ export default function CavaDeVinos() {
             <FF l="País"><select className="fi" style={S.input} value={form.pais} onChange={e=>setForm({...form,pais:e.target.value})}>{PAISES.map(p=><option key={p}>{p}</option>)}</select></FF>
             <FF l="Categoría"><select className="fi" style={S.input} value={form.tier} onChange={e=>setForm({...form,tier:e.target.value})}>{TIERS.map(t=><option key={t}>{t}</option>)}</select></FF>
             <FF l="Cava"><select className="fi" style={S.input} value={form.cava} onChange={e=>setForm({...form,cava:e.target.value})}>{CAVAS.map(c=><option key={c}>{c}</option>)}</select></FF>
+            <FF l="Botellas"><input className="fi" style={S.input} type="number" min="1" max="99" value={form.stock} onChange={e=>setForm({...form,stock:parseInt(e.target.value)||1})} placeholder="1"/></FF>
+            <FF l="Botellas"><input className="fi" style={S.input} type="number" min="1" max="99" value={form.stock||1} onChange={e=>setForm({...form,stock:parseInt(e.target.value)||1})}/></FF>
           </div>
           {!editWine&&<div style={{marginTop:18,textAlign:"center"}}>
             <button onClick={handleResearch} disabled={researching||!form.nombre||!form.vina} style={{...S.saveBtn,padding:"12px 28px",fontSize:14,opacity:researching||!form.nombre||!form.vina?0.5:1,cursor:researching?"wait":"pointer",width:"100%",background:researched?"linear-gradient(135deg,#3a6b3e,#2a5a2e)":"linear-gradient(135deg,#7a3b4e,#5a2838)"}}>
@@ -548,9 +574,10 @@ function SC({icon,label,value,accent,gold}){return<div style={{...S.statCard,...
 
 function DashboardView({stats,wines,onDetail,fY}){
   const ce=Object.entries(stats.cepas).sort((a,b)=>b[1]-a[1]),te=Object.entries(stats.tiers).sort((a,b)=>TIERS.indexOf(a[0])-TIERS.indexOf(b[0])),mc=ce.length?ce[0][1]:1,pe=Object.entries(stats.paises).sort((a,b)=>b[1]-a[1]);
+  const vi=Object.entries(stats.vinas).sort((a,b)=>b[1]-a[1]),mv=vi.length?vi[0][1]:1;
   return<div style={{animation:"fadeIn 0.4s ease"}}>
     <div style={S.statsRow}>
-      <SC icon="🍾" label="Vinos" value={stats.total}/>
+      <SC icon="🍾" label="Botellas" value={stats.totalBotellas}/>
       <SC icon="💰" label="Valor Cava" value={fmtCLP(stats.valorTotal)} gold/>
       <SC icon="📦" label="Cava 1" value={stats.cavas["Cava 1"]||0}/>
       <SC icon="📦" label="Cava 2" value={stats.cavas["Cava 2"]||0}/>
@@ -559,14 +586,15 @@ function DashboardView({stats,wines,onDetail,fY}){
     <div style={S.dashGrid}>
       <div style={{...S.card,gridColumn:"1/-1"}}><h3 style={S.cardTitle}>🏆 Ranking Automático</h3>
         <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(340px,1fr))",gap:0}}>
-          {wines.map(w=><div key={w.id} className="top-row" style={S.topWineRow} onClick={()=>onDetail(w)}>
+          {wines.map(w=><div key={w.id} className="top-row" style={{...S.topWineRow,opacity:w.stock===0?0.4:1}} onClick={()=>onDetail(w)}>
             <div style={S.topRank}>#{w.ranking}</div>
-            <div style={{flex:1,minWidth:0,overflow:"hidden"}}><div style={S.topName}>{w.nombre}</div><div style={S.topMeta}>{w.vina}·{w.cepa}·{w.ano}{w.puntajeCriticos?` ·${w.puntajeCriticos}pts`:""}{w.precioPromedio?` · ${fmtCLP(w.precioPromedio)}`:""}</div></div>
+            <div style={{flex:1,minWidth:0,overflow:"hidden"}}><div style={S.topName}>{w.nombre}{(w.stock??1)>1?` ×${w.stock}`:""}{w.stock===0?" (agotado)":""}</div><div style={S.topMeta}>{w.vina}·{w.cepa}·{w.ano}{w.puntajeCriticos?` ·${w.puntajeCriticos}pts`:""}{w.precioPromedio?` · ${fmtCLP(w.precioPromedio)}`:""}</div></div>
             <div style={{display:"flex",gap:4,alignItems:"center",flexShrink:0}}><div style={{...S.tierBadge,background:tC(w.tier),fontSize:9}}>{w.tier}</div></div>
           </div>)}
         </div>
       </div>
       <div style={S.card}><h3 style={S.cardTitle}>🍇 Por Cepa</h3>{ce.map(([c,n])=><div key={c} style={S.barRow}><div style={S.barLabel}>{c}</div><div style={S.barTrack}><div style={{...S.barFill,width:`${(n/mc)*100}%`}}/></div><div style={S.barValue}>{n}</div></div>)}</div>
+      <div style={S.card}><h3 style={S.cardTitle}>🏛️ Por Viña</h3>{vi.map(([v,n])=><div key={v} style={S.barRow}><div style={{...S.barLabel,width:120}}>{v.replace("Viña ","").replace("Viñedos ","")}</div><div style={S.barTrack}><div style={{...S.barFill,width:`${(n/mv)*100}%`,background:"linear-gradient(90deg,#5a4a3a,#c9a44a)"}}/></div><div style={S.barValue}>{n}</div></div>)}</div>
       <div style={S.card}><h3 style={S.cardTitle}>🏷️ Categoría</h3>{te.map(([t,n])=><div key={t} style={S.tierRow}><div style={{...S.tierDot,background:tC(t)}}/><div style={{flex:1,color:"#c9b8a8",fontSize:13}}>{t}</div><div style={{color:"#e8ddd0",fontWeight:600,fontSize:14}}>{n}</div></div>)}
         {pe.length>0&&<><div style={{borderTop:"1px solid rgba(160,100,80,0.1)",margin:"12px 0",paddingTop:12}}><div style={{fontSize:12,color:"#8a7a6a",fontWeight:600,marginBottom:8,textTransform:"uppercase",letterSpacing:0.5}}>Por País</div></div>
         {pe.map(([p,n])=><div key={p} style={S.tierRow}><div style={{fontSize:15,width:22,textAlign:"center"}}>{p==="Chile"?"🇨🇱":p==="Sudáfrica"?"🇿🇦":p==="Argentina"?"🇦🇷":p==="Francia"?"🇫🇷":"🌍"}</div><div style={{flex:1,color:"#c9b8a8",fontSize:13}}>{p}</div><div style={{color:"#e8ddd0",fontWeight:600,fontSize:14}}>{n}</div></div>)}</>}
@@ -587,14 +615,15 @@ function CollectionView({wines,search,setSearch,filterCepa,setFilterCepa,filterT
     </div>
     <div style={{color:"#8a7a6a",fontSize:12,marginBottom:14}}>{wines.length} vino{wines.length!==1?"s":""}</div>
     {wines.length===0?<div style={S.emptyState}><div style={{fontSize:44,marginBottom:10}}>🍇</div><div style={{color:"#8a7a6a",fontSize:15}}>Sin resultados</div></div>:
-    <div style={S.wineGrid}>{wines.map((w,i)=><div key={w.id} className="wine-card" onClick={()=>onDetail(w)} style={{...S.wineCard,animationDelay:`${i*0.04}s`,cursor:"pointer"}}>
-      <div style={S.wineCardTop}><div style={{display:"flex",gap:5,alignItems:"center"}}><div style={{...S.tierBadge,background:tC(w.tier)}}>{w.tier}</div><div style={S.rankBadge}>#{w.ranking}</div></div><div style={{fontSize:11,color:"#6a5a4a"}}>📍{w.cava}</div></div>
+    <div style={S.wineGrid}>{wines.map((w,i)=><div key={w.id} className="wine-card" onClick={()=>onDetail(w)} style={{...S.wineCard,animationDelay:`${i*0.04}s`,cursor:"pointer",opacity:w.stock===0?0.45:1}}>
+      <div style={S.wineCardTop}><div style={{display:"flex",gap:5,alignItems:"center"}}><div style={{...S.tierBadge,background:tC(w.tier)}}>{w.tier}</div><div style={S.rankBadge}>#{w.ranking}</div>{(w.stock??1)>1&&<div style={{...S.rankBadge,color:"#8a9abf",borderColor:"rgba(138,154,191,0.2)",background:"rgba(138,154,191,0.1)"}}>×{w.stock}</div>}</div><div style={{fontSize:11,color:"#6a5a4a"}}>📍{w.cava}</div></div>
       <div style={S.wineName}>{w.nombre}</div>
       <div style={S.wineMeta}>{w.vina}·{w.ano}</div>
       <div style={S.wineMeta}>{w.cepa}{w.pais!=="Chile"?` ·${w.pais}`:""}</div>
       <div style={{marginTop:6,display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}>
         {w.puntajeCriticos&&<span style={{fontSize:11,color:"#c9a44a"}}>⭐{w.puntajeCriticos}pts</span>}
         {w.precioPromedio&&<span style={{fontSize:11,color:"#8cbf6a"}}>{fmtCLP(w.precioPromedio)}</span>}
+        {w.stock===0&&<span style={{fontSize:11,color:"#c06060",fontWeight:600}}>Agotado</span>}
       </div>
       <div style={{marginTop:4,display:"flex",gap:5,flexWrap:"wrap"}}>
         {w.produccion&&<span style={{...S.badge,background:"rgba(100,100,120,0.12)",color:"#8a7a6a"}}>{w.produccion}</span>}
